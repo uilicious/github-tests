@@ -1,9 +1,5 @@
 name: Run UI-licious Tests
 run-name: Run UI-licious Tests
-env: 
-  TEST_FILES: []
-    - "Login to Github"
-    - "Search for uilicious-cli"
 on:
   # sync uilicious projects on push
   push:
