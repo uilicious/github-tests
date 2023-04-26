@@ -19,4 +19,4 @@ jobs:
       - name: Commit changed files to the repository
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: [Auto-commit] Sync UI-licious Tests
+          commit_message: "[Auto-commit] Sync UI-licious Tests"
