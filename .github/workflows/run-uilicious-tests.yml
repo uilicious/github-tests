@@ -9,6 +9,10 @@ jobs:
   upload:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout HEAD
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
       - name: Install uilicious-cli
         run: npm install -g uilicious-cli
       - name: Upload UI-licious Project
@@ -30,4 +34,4 @@ jobs:
       - name: Install uilicious-cli
         run: npm install -g uilicious-cli
       - name: Run File
-        run: uilicious-cli run ${{ vars.UILICIOUS_PROJECT_ID }} ${{ matrix.test_file_path }} --browser ${{ matrix.browser }} --width ${{ matrix.resolution.width }} --height ${{ matrix..resolution.height }} --key ${{ secrets.UILICIOUS_ACCESS_KEY }}
+        run: uilicious-cli run ${{ vars.UILICIOUS_PROJECT_ID }} ${{ matrix.test_file_path }} --browser ${{ matrix.browser }} --width ${{ matrix.resolution.width }} --height ${{ matrix.resolution.height }} --key ${{ secrets.UILICIOUS_ACCESS_KEY }}
