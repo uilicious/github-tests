@@ -1,12 +1,14 @@
 name: Run UI-licious Tests
 run-name: Run UI-licious Tests
 on:
-  # sync uilicious projects on push
+  # run uilicious tests when commits are pushed to target branches
   push:
     branches:
       - 'main'
 jobs:
-  upload:
+  # The "sync-to-cloud" job:
+  # This sync all test files from the test directory in the repository to UI-licious Cloud
+  sync-to-cloud:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout HEAD
@@ -17,17 +19,25 @@ jobs:
         run: npm install -g uilicious-cli
       - name: Upload UI-licious Project
         run: uilicious-cli upload ${{ vars.UILICIOUS_PROJECT_ID }} ${{ vars.UILICIOUS_TEST_DIR }} --key ${{ secrets.UILICIOUS_ACCESS_KEY }}
+  # The "run-test" job:
+  # This runs specified test files in parallel
   run-test:
-    needs: upload
+    # Run 'sync-to-cloud' job is complete.
+    needs: sync-to-cloud 
     strategy:
       matrix: 
+        # List of test files to run
         test_file_path: [
           "Login to Github",
           "search/Search for uilicious-cli" 
         ]
+        # List of browsers to run the tests on
         browser: ['chrome']
+        # List of resolutions to run the tests on
         resolution: [{width: 1280, height: 800}]
-      max-parallel: 2
+      # Number of Github Runners to run this job in parallel
+      # - This should not be more than the number of UI-licious test runners that you have available
+      max-parallel: 2 
     runs-on: ubuntu-latest
     steps:
       - run: echo '"${{ matrix.test_file_path }}" (${{ matrix.browser }} ${{ matrix.resolution.width }}x${{ matrix.resolution.height }})'
