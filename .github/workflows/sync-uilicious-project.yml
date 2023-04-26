@@ -12,7 +12,7 @@ jobs:
       - name: Install uilicious-cli
         run: npm install -g uilicious-cli
       - name: Download UI-licious Project
-        run: uilicious-cli download ${{ vars.UILICIOUS_PROJECT_ID }} ${{ vars.TEST_DIR }} --key ${{ secrets.UILICIOUS_ACCESS_KEY }}
+        run: uilicious-cli download ${{ vars.UILICIOUS_PROJECT_ID }} ${{ vars.UILICIOUS_TEST_DIR }} --key ${{ secrets.UILICIOUS_ACCESS_KEY }}
       - name: Commit changed files to the repository
         uses: stefanzweifel/git-auto-commit-action@v4 # Refer to: https://github.com/marketplace/actions/git-auto-commit
         with:
