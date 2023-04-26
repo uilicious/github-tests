@@ -6,16 +6,16 @@ on:
     branches:
       - 'main'
 jobs:
-  # upload:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Install uilicious-cli
-  #       run: npm install -g uilicious-cli
-  #     - name: Upload UI-licious Project
-  #       run: uilicious-cli upload ${{ vars.UILICIOUS_PROJECT_ID }} ${{ vars.UILICIOUS_TEST_DIR }} --key ${{ secrets.UILICIOUS_ACCESS_KEY }}
-  run:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install uilicious-cli
+        run: npm install -g uilicious-cli
+      - name: Upload UI-licious Project
+        run: uilicious-cli upload ${{ vars.UILICIOUS_PROJECT_ID }} ${{ vars.UILICIOUS_TEST_DIR }} --key ${{ secrets.UILICIOUS_ACCESS_KEY }}
+  run-test:
+    needs: upload
     strategy:
-      
       matrix: 
         test_file_path: [
           "Login to Github",
@@ -26,10 +26,8 @@ jobs:
       max-parallel: 2
     runs-on: ubuntu-latest
     steps:
-      - run: echo '${{ matrix.test_file_path }} ${{ matrix.browser }} ${{ matrix.resolution.width }} ${{ matrix.resolution.height }}'
-      # - name: Install uilicious-cli
-      #   run: npm install -g uilicious-cli
-      # - name: Run File
-      #   run: uilicious-cli run ${{ vars.UILICIOUS_PROJECT_ID }} ${{ matrix.test_file_path }} --browser ${{ matrix.browser }} --width ${{ matrix.resolution.width }} --height ${{ matrix..resolution.height }} --key ${{ secrets.UILICIOUS_ACCESS_KEY }}
-
-        
+      - run: echo '"${{ matrix.test_file_path }}" (${{ matrix.browser }} ${{ matrix.resolution.width }}x${{ matrix.resolution.height }})'
+      - name: Install uilicious-cli
+        run: npm install -g uilicious-cli
+      - name: Run File
+        run: uilicious-cli run ${{ vars.UILICIOUS_PROJECT_ID }} ${{ matrix.test_file_path }} --browser ${{ matrix.browser }} --width ${{ matrix.resolution.width }} --height ${{ matrix..resolution.height }} --key ${{ secrets.UILICIOUS_ACCESS_KEY }}
