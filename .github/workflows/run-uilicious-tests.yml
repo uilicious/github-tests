@@ -1,7 +1,7 @@
 name: Run UI-licious Tests
 run-name: Run UI-licious Tests
 env: 
-  TEST_FILES:
+  TEST_FILES: []
     - "Login to Github"
     - "Search for uilicious-cli"
 on:
@@ -10,17 +10,30 @@ on:
     branches:
       - 'main'
 jobs:
-  upload:
+  # upload:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Install uilicious-cli
+  #       run: npm install -g uilicious-cli
+  #     - name: Upload UI-licious Project
+  #       run: uilicious-cli upload ${{ vars.UILICIOUS_PROJECT_ID }} ${{ vars.UILICIOUS_TEST_DIR }} --key ${{ secrets.UILICIOUS_ACCESS_KEY }}
+  run:
+    strategy:
+      
+      matrix: 
+        test_file_path: [
+          "Login to Github",
+          "search/Search for uilicious-cli" 
+        ]
+        browser: ['chrome']
+        resolution: [{width: 1280, height: 800}]
+      max-parallel: 2
     runs-on: ubuntu-latest
     steps:
+      - run: echo '${{ matrix.test_file_path }} ${{ matrix.browser }} ${{ matrix.resolution.width }} ${{ matrix.resolution.height }}'
       # - name: Install uilicious-cli
       #   run: npm install -g uilicious-cli
-      # - name: Upload UI-licious Project
-      #   run: uilicious-cli upload ${{ vars.UILICIOUS_PROJECT_ID }} ${{ vars.UILICIOUS_TEST_DIR }} --key ${{ secrets.UILICIOUS_ACCESS_KEY }}
-      - name: echo files
-        run: |
-          echo ${{env.TEST_FILES}}
-          for f in ${{env.TEST_FILES}}
-          do
-            echo "Running test file: $f"
-          done
+      # - name: Run File
+      #   run: uilicious-cli run ${{ vars.UILICIOUS_PROJECT_ID }} ${{ matrix.test_file_path }} --browser ${{ matrix.browser }} --width ${{ matrix.resolution.width }} --height ${{ matrix..resolution.height }} --key ${{ secrets.UILICIOUS_ACCESS_KEY }}
+
+        
