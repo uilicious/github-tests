@@ -2,8 +2,8 @@ name: Sync UI-licious Project
 run-name: Sync UI-licious Project
 on: [push]
 env:
-  - UILICIOUS_PROJECT_ID: "LPstoizdG1UrShapUVhuwY"
-  - TEST_DIR: "./tests"
+  UILICIOUS_PROJECT_ID: "LPstoizdG1UrShapUVhuwY"
+  TEST_DIR: "./tests"
 jobs:
   sync:
     runs-on: ubuntu-latest
