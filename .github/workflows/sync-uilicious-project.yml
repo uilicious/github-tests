@@ -14,7 +14,7 @@ jobs:
           ref: ${{ github.head_ref }}
       - name: Install uilicious-cli
         run: npm install -g uilicious-cli
-      - name: Download UI-licious Project to "./tests"
+      - name: Download UI-licious Project
         run: uilicious-cli download ${{ env.UILICIOUS_PROJECT_ID }} ${{ env.TEST_DIR }} --key ${{ secrets.UILICIOUS_ACCESS_KEY }}
       - name: Commit changed files to the repository
         uses: stefanzweifel/git-auto-commit-action@v4
