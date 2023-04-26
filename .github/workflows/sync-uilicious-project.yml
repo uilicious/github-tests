@@ -1,0 +1,11 @@
+name: Sync UI-licious Project
+run-name: Sync UI-licious Project
+on: [push]
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm install -g uilicious-cli
+      - run: echo ${{env.UILICIOUS_PROJECT_ID}}
+      - run: uilicious-cli download ${{env.UILICIOUS_PROJECT_ID}} "./tests" --key ${{env.UILICIOUS_ACCESS_KEY}}
+      
