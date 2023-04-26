@@ -1,11 +1,19 @@
 name: Sync UI-licious Project
 run-name: Sync UI-licious Project
 on: [push]
+env:
+  - UILICIOUS_PROJECT_ID: "LPstoizdG1UrShapUVhuwY"
+  - TEST_DIR: "./tests"
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - run: npm install -g uilicious-cli
-      - run: echo ${{ vars.UILICIOUS_PROJECT_ID }}
-      - run: uilicious-cli download ${{ vars.UILICIOUS_PROJECT_ID }} "./tests" --key ${{ secrets.UILICIOUS_ACCESS_KEY }}
+      - name: Checkout HEAD
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Install uilicious-cli
+        run: npm install -g uilicious-cli
+      - name: Download UI-licious Project to "./tests"
+        run: uilicious-cli download ${{ env.UILICIOUS_PROJECT_ID }} ${{ env.TEST_DIR }} --key ${{ secrets.UILICIOUS_ACCESS_KEY }}
       
