@@ -2,7 +2,9 @@ name: Sync UI-licious Tests
 run-name: Sync UI-licious Tests
 on:
   # sync uilicious projects on push
-  push
+  push:
+    branches:
+      - 'main'
   # sync uilicious projects at regular intervals
   schedule:
     # - cron: '0 */1 * * *' # every hour
