@@ -6,7 +6,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: npm install -g uilicious-cli
-      - run: echo ${{ env.UILICIOUS_PROJECT_ID }}
-      - run: echo $UILICIOUS_PROJECT_ID
-      - run: uilicious-cli download ${{ env.UILICIOUS_PROJECT_ID }} "./tests" --key ${{ secrets.UILICIOUS_ACCESS_KEY }}
+      - run: echo ${{ vars.UILICIOUS_PROJECT_ID }}
+      - run: uilicious-cli download ${{ vars.UILICIOUS_PROJECT_ID }} "./tests" --key ${{ secrets.UILICIOUS_ACCESS_KEY }}
       
