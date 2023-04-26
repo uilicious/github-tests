@@ -1,6 +1,12 @@
 name: Sync UI-licious Tests
 run-name: Sync UI-licious Tests
-on: [push]
+on:
+  # sync uilicious projects on push
+  push
+  # sync uilicious projects at regular intervals
+  schedule:
+    # - cron: '0 */1 * * *' # every hour
+    - cron: '*/20 * * * *' # every 20 minutes
 jobs:
   sync:
     runs-on: ubuntu-latest
