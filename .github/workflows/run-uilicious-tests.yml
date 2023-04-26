@@ -19,8 +19,8 @@ jobs:
       #   run: uilicious-cli upload ${{ vars.UILICIOUS_PROJECT_ID }} ${{ vars.UILICIOUS_TEST_DIR }} --key ${{ secrets.UILICIOUS_ACCESS_KEY }}
       - name: echo files
         run: |
-        echo ${{env.TEST_FILES}}
-        for f in ${{env.TEST_FILES}}
-        do
-          echo "Running test file: $f"
-        done
+          echo ${{env.TEST_FILES}}
+          for f in ${{env.TEST_FILES}}
+          do
+            echo "Running test file: $f"
+          done
